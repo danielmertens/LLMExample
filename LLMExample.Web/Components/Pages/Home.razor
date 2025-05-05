@@ -1,0 +1,45 @@
+﻿@page "/"
+@using LLMExample.Web.Services
+@using OpenAI.Chat
+@rendermode InteractiveServer
+
+<PageTitle>Home</PageTitle>
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+
+<div class="chat-container">
+    <div class="messages-panel">
+        @foreach (var message in _messages)
+        {
+            <div class="@(message is UserChatMessage ? "my-message" : "other-message")">
+                @message.Content.Aggregate("", (agg, next) => agg += next.Text)
+            </div>
+        }
+    </div>
+    <div class="input-panel">
+        <input type="text" @bind="newMessage" placeholder="Type your message..." />
+        <button @onclick="SendMessageAsync">Send</button>
+    </div>
+</div>
+
+@code {
+    [Inject]
+    IChatService ChatService { get; set; }
+
+    private List<ChatMessage> _messages = new List<ChatMessage>();
+    private string? newMessage;
+
+    private async Task SendMessageAsync()
+    {
+        if (!string.IsNullOrWhiteSpace(newMessage))
+        {
+            _messages.Add(new UserChatMessage(newMessage));
+            newMessage = string.Empty;
+
+            var response = await ChatService.SendMessageAsync(_messages);
+            _messages.Add(response);
+        }
+    }
+}

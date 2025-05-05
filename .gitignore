@@ -1,0 +1,46 @@
+# Ignore build outputs
+bin/
+obj/
+
+# Ignore user-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Ignore logs
+*.log
+
+# Ignore publish outputs
+wwwroot/
+
+# Ignore temporary files
+*.tmp
+*.temp
+*.bak
+*.swp
+
+# Ignore IDE-specific files
+.vscode/
+.idea/
+
+# Ignore dependency directories
+node_modules/
+
+# Ignore compressed files
+*.gz
+
+# Ignore runtime files
+*.runtimeconfig.json
+*.deps.json
+*.pdb
+*.dll
+*.exe
+*.cache
+
+# Ignore static web assets
+staticwebassets/
+
+.vs/
+publish/
+publish.zip
